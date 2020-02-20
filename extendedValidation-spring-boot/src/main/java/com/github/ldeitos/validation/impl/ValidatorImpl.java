@@ -1,0 +1,103 @@
+package com.github.ldeitos.validation.impl;
+
+import static com.github.ldeitos.constants.Constants.EXTENDED_VALIDATOR_QUALIFIER;
+import static com.github.ldeitos.exception.ViolationException.throwNew;
+import static java.lang.String.format;
+import static java.util.stream.Collectors.toList;
+import static org.apache.commons.collections.CollectionUtils.isNotEmpty;
+
+import java.security.InvalidParameterException;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.ValidatorFactory;
+import javax.validation.executable.ExecutableValidator;
+import javax.validation.metadata.BeanDescriptor;
+
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
+import com.github.ldeitos.exception.ViolationException;
+import com.github.ldeitos.validation.Message;
+import com.github.ldeitos.validation.Validator;
+
+/**
+ * Extended validator concrete implementation.
+ *
+ * @author <a href=mailto:leandro.deitos@gmail.com>Leandro Deitos</a>
+ *
+ */
+@Component
+@Qualifier(EXTENDED_VALIDATOR_QUALIFIER)
+public class ValidatorImpl implements Validator {
+
+	private ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+
+	private javax.validation.Validator delegate = factory.getValidator();
+
+	@Override
+	public <T> Set<ConstraintViolation<T>> validate(T object, Class<?>... groups) {
+		return delegate.validate(object, groups);
+	}
+
+	@Override
+	public <T> Set<ConstraintViolation<T>> validateProperty(T object, String propertyName, Class<?>... groups) {
+		return delegate.validateProperty(object, propertyName, groups);
+	}
+
+	@Override
+	public <T> Set<ConstraintViolation<T>> validateValue(Class<T> beanType, String propertyName,
+	    Object value, Class<?>... groups) {
+		return delegate.validateValue(beanType, propertyName, value, groups);
+	}
+
+	@Override
+	public BeanDescriptor getConstraintsForClass(Class<?> clazz) {
+		return delegate.getConstraintsForClass(clazz);
+	}
+
+	@Override
+	public <T> T unwrap(Class<T> type) {
+		if (type.isAssignableFrom(Validator.class)) {
+			return type.cast(this);
+		}
+
+		throw new InvalidParameterException(format("Impossible to get %s instance.", type.getName()));
+	}
+
+	@Override
+	public ExecutableValidator forExecutables() {
+		return delegate.forExecutables();
+	}
+
+	@Override
+	public <T> Set<Message> validateBean(T object, Class<?>... groups) {
+		Set<ConstraintViolation<T>> constraints = validate(object, groups);
+		return new HashSet<Message>(constraints.stream().map(MessageImpl::new).collect(toList()));
+	}
+
+	@Override
+	public <T> Set<Message> validatePropertyBean(T object, String propertyName, Class<?>... groups) {
+		Set<ConstraintViolation<T>> constraints = validateProperty(object, propertyName, groups);
+		return new HashSet<Message>(constraints.stream().map(MessageImpl::new).collect(toList()));
+	}
+
+	@Override
+	public <T> Set<Message> validateValueBean(Class<T> beanType, String propertyName, Object value,
+	    Class<?>... groups) {
+		Set<ConstraintViolation<T>> constraints = validateValue(beanType, propertyName, value, groups);
+		return new HashSet<Message>(constraints.stream().map(MessageImpl::new).collect(toList()));
+	}
+
+	@Override
+	public <T> void validateAndThrow(T object, Class<?>... groups) throws ViolationException {
+		Set<Message> violations = validateBean(object, groups);
+
+		if (isNotEmpty(violations)) {
+			throwNew(format("Validated object [%s] has violations.", object), violations);
+		}
+	}
+
+}
