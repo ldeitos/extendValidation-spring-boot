@@ -38,10 +38,10 @@
 <!-- 	</scm> -->
 
 	<modules>
-		<module>extendedValidation-parent</module>
-		<module>extendedValidation-core</module>
-		<module>extendedValidation</module>
-		<module>extendedValidationTestSupport</module>
+		<module>extendedValidation-spring-boot-parent</module>
+		<module>extendedValidation-spring-boot-core</module>
+		<module>extendedValidation-spring-boot</module>
+		<module>extendedValidation-spring-boot-test-support</module>
 	</modules>
 
 	<build>
