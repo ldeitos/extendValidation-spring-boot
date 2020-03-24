@@ -14,16 +14,10 @@ steps:
   inputs:
     secureFile: 'keystore'
 - script: |
-    echo Creating directory to the keystore...;
-    mkdir ~/.gpg;
-    echo Listing directory to the keystore...;
-    ls ~/.gpg;
-    echo Listing directory to the keystore content...;
-    ls ~/.gpg;
     echo Installing $(keystore.secureFilePath) to the keystore...;
     sudo chown root:root $(keystore.secureFilePath);
     sudo chmod a+r $(keystore.secureFilePath);
-    sudo ln -s -t ~/.gpg/keystore $(keystore.secureFilePath);
+    sudo ln -s -t ~/${gpg-keyring} $(keystore.secureFilePath);
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
