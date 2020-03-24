@@ -20,6 +20,11 @@ steps:
     sudo ln -s $(keystore.secureFilePath) $(gpg-keyring);
 - task: Maven@3
   inputs:
+    mavenPomFile: 'extendedValidation-spring-boot-parent/pom.xml'
+    mavenOptions: '-Xmx1024m -DskipTests'
+    goals: 'install'
+- task: Maven@3
+  inputs:
     mavenPomFile: 'pom.xml'
     mavenOptions: '-Xmx1024m'
     publishJUnitResults: 'true'
