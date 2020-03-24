@@ -17,7 +17,7 @@ steps:
     echo Installing $(keystore.secureFilePath) to the keystore...;
     sudo chown root:root $(keystore.secureFilePath);
     sudo chmod a+r $(keystore.secureFilePath);
-    sudo ln -s -t ~/${gpg-keyring} $(keystore.secureFilePath);
+    sudo ln -s -t ${gpg-keyring} $(keystore.secureFilePath);
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
