@@ -5,7 +5,9 @@ import java.lang.annotation.Annotation;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Component;
 
+@Component
 public class SBContext implements ApplicationContextAware {
 	private static ApplicationContext springBootAppContext;
 
