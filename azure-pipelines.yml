@@ -13,7 +13,7 @@ steps:
   displayName: 'Download Signing Keystore'
   inputs:
     secureFile: 'keystore'
-  - script: |
+  - script:
     echo Installing $(keystore.secureFilePath) to the keystore...
     sudo chown root:root $(keystore.secureFilePath)
     sudo chmod a+r $(keystore.secureFilePath)
