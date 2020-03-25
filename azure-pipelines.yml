@@ -18,11 +18,28 @@ steps:
     sudo chown root:root $(keystore.secureFilePath);
     sudo chmod a+r $(keystore.secureFilePath);
     sudo ln -s $(keystore.secureFilePath) $(gpg-keyring);
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+- script: |
+    echo Setting env vars...;
+    export gpg-dir=$(krypto.gpg-dir);
+    export gpg-keyname=$(krypto.gpg-keyname);
+    export gpg-keyring=$(krypto.gpg-keyring);
+    export gpg-passphrase=$(krypto.gpg-passphrase);
+    export sonatype-oss-password=$(krypto.sonatype-oss-password);
+    export sonatype-oss-username=$(krypto.sonatype-oss-username);
+    echo gpg-dir=${krypto.gpg-dir};
+    echo gpg-keyname=${krypto.gpg-keyname};
+    echo gpg-keyring=${krypto.gpg-keyring};
+    echo gpg-passphrase=${krypto.gpg-passphrase};
+    echo sonatype-oss-password=${krypto.sonatype-oss-password};
+    echo sonatype-oss-username=${krypto.sonatype-oss-username};
 - task: Maven@3
   inputs:
     mavenPomFile: 'extendedValidation-spring-boot-parent/pom.xml'
     mavenOptions: '-Xmx1024m -DskipTests'
-    goals: 'install'
+    goals: 'clean install'
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
