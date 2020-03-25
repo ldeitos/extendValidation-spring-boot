@@ -36,27 +36,32 @@
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
 		</dependency>		
+		
 		<dependency>
-			<groupId>${project.groupId}</groupId>
+			<groupId>com.github.ldeitos</groupId>
 			<artifactId>extendedValidation-spring-boot</artifactId>
-			<version>${project.parent.version}</version>
-			<scope>compile</scope>
 		</dependency>
+		
 		<dependency>
-			<groupId>${project.groupId}</groupId>
+			<groupId>com.github.ldeitos</groupId>
 			<artifactId>extendedValidation-spring-boot-core</artifactId>
-			<version>${project.parent.version}</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
+			<artifactId>spring-boot-test</artifactId>
 			<scope>compile</scope>
 		</dependency>
-
+		
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-logging</artifactId>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
 			<scope>compile</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
 		</dependency>
 
 		<dependency>

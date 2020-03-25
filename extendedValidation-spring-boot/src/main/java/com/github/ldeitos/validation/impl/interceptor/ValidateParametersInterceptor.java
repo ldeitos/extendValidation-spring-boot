@@ -5,8 +5,8 @@ import static com.github.ldeitos.constants.Constants.EXTENDED_VALIDATOR_QUALIFIE
 import static com.github.ldeitos.validation.impl.configuration.Configuration.getConfiguration;
 import static java.lang.String.format;
 import static java.lang.String.valueOf;
-import static org.apache.commons.collections.CollectionUtils.isEmpty;
-import static org.apache.commons.collections.CollectionUtils.isNotEmpty;
+import static org.apache.commons.collections4.CollectionUtils.isEmpty;
+import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 import static org.slf4j.LoggerFactory.getLogger;
 
 import java.lang.annotation.Annotation;
@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
@@ -26,7 +25,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.github.ldeitos.bootstrap.SBContext;
-import com.github.ldeitos.constants.Constants;
 import com.github.ldeitos.validation.Message;
 import com.github.ldeitos.validation.ValidationClosure;
 import com.github.ldeitos.validation.Validator;

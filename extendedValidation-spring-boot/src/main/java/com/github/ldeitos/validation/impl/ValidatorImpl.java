@@ -4,7 +4,7 @@ import static com.github.ldeitos.constants.Constants.EXTENDED_VALIDATOR_QUALIFIE
 import static com.github.ldeitos.exception.ViolationException.throwNew;
 import static java.lang.String.format;
 import static java.util.stream.Collectors.toList;
-import static org.apache.commons.collections.CollectionUtils.isNotEmpty;
+import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 
 import java.security.InvalidParameterException;
 import java.util.HashSet;
@@ -48,8 +48,8 @@ public class ValidatorImpl implements Validator {
 	}
 
 	@Override
-	public <T> Set<ConstraintViolation<T>> validateValue(Class<T> beanType, String propertyName,
-	    Object value, Class<?>... groups) {
+	public <T> Set<ConstraintViolation<T>> validateValue(Class<T> beanType, String propertyName, Object value,
+			Class<?>... groups) {
 		return delegate.validateValue(beanType, propertyName, value, groups);
 	}
 
@@ -86,7 +86,7 @@ public class ValidatorImpl implements Validator {
 
 	@Override
 	public <T> Set<Message> validateValueBean(Class<T> beanType, String propertyName, Object value,
-	    Class<?>... groups) {
+			Class<?>... groups) {
 		Set<ConstraintViolation<T>> constraints = validateValue(beanType, propertyName, value, groups);
 		return new HashSet<Message>(constraints.stream().map(MessageImpl::new).collect(toList()));
 	}
