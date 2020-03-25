@@ -1,0 +1,9 @@
+<settings>
+  <servers>
+   	<server>
+		<id>oss-sonatype</id>
+		<username>${SONATYPE_OSS_USERNAME}</username>
+		<password>${SONATYPE_OSS_PASSWORD}</password>
+	</server>
+  </servers>
+</settings>

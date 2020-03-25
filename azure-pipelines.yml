@@ -23,27 +23,27 @@ steps:
     targetType: 'inline'
     script: |
       echo Setting env vars...
-      export gpg-dir=$(krypto.gpg-dir)
-      export gpg-keyname=$(krypto.gpg-keyname)
-      export gpg-keyring=$(krypto.gpg-keyring)
-      export gpg-passphrase=$(krypto.gpg-passphrase)
-      export sonatype-oss-password=$(krypto.sonatype-oss-password)
-      export sonatype-oss-username=$(krypto.sonatype-oss-username)
-      echo gpg-dir=${krypto.gpg-dir}
-      echo gpg-keyname=${krypto.gpg-keyname}
-      echo gpg-keyring=${krypto.gpg-keyring}
-      echo gpg-passphrase=${krypto.gpg-passphrase}
-      echo sonatype-oss-password=${krypto.sonatype-oss-password}
-      echo sonatype-oss-username=${krypto.sonatype-oss-username}
+      export GPG_DIR=$(krypto.gpg-dir)
+      export GPG_KEYNAME=$(krypto.gpg-keyname)
+      export GPG_KEYRING=$(krypto.gpg-keyring)
+      export GPG_PASSPHRASE=$(krypto.gpg-passphrase)
+      export SONATYPE_OSS_PASSWORD=$(krypto.sonatype-oss-password)
+      export SONARYPE_OSS_USERNAME=$(krypto.sonatype-oss-username)
+      echo gpg-dir=${GPG_DIR}
+      echo gpg-keyname=${GPG_KEYNAME}
+      echo gpg-keyring=${GPG_KEYRING}
+      echo gpg-passphrase=${GPG_PASSPHRASE}
+      echo sonatype-oss-password=${SONATYPE_OSS_PASSWORD}
+      echo sonatype-oss-username=${SONARYPE_OSS_USERNAME}
 - task: Maven@3
   inputs:
     mavenPomFile: 'extendedValidation-spring-boot-parent/pom.xml'
-    mavenOptions: '-Xmx1024m -DskipTests'
+    mavenOptions: '-Xmx1024m -DskipTests -Dmaven.javadoc.skip=true'
     goals: 'clean install'
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx1024m'
+    mavenOptions: '-Xmx1024m -Dmaven.javadoc.skip=true -s maven/settings.xml'
     publishJUnitResults: 'true'
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'clean package verify sonar:sonar deploy'
