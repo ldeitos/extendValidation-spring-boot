@@ -82,6 +82,7 @@
 							<passphrase>${gpg.passphrase}</passphrase>
 							<defaultKeyring>false</defaultKeyring>
 							<homedir>${gpg.homedir}</homedir>
+							<ascDirectory>${gpg.ascDirectory}</ascDirectory>
 							<publicKeyring>${gpg.keyring}</publicKeyring>
 							<secretKeyring>${gpg.keyring}</secretKeyring>
 							<gpgArguments>

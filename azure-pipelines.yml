@@ -39,6 +39,7 @@ steps:
     mavenPomFile: 'extendedValidation-spring-boot-parent/pom.xml'
     mavenOptions: '-Xmx1024m -DskipTests -Dmaven.javadoc.skip=true 
                    -Dgpg.defaultKeyring=false
+                   -Dgpg.ascDirectory=$(gpg-dir)
                    -Dgpg.homedir=$(gpg-dir) 
                    -Dgpg.keyname=$(gpg-keyname)
                    -Dgpg.secretKeyring=$(gpg-keyring)
