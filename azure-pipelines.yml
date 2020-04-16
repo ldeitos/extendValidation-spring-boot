@@ -9,29 +9,35 @@ variables:
 - group: krypto
 steps:
 - task: DownloadSecureFile@1
-  name: keystore
-  displayName: 'Download Signing Keystore'
+  name: public
+  displayName: 'Download Signing Public Key'
   inputs:
-    secureFile: 'keystore'
+    secureFile: 'public.key'
 - script: |
+    echo Installing $(public.secureFilePath) to the keystore...;
+    sudo chown root:root $(public.secureFilePath);
+    sudo gpg -k;
+    sudo gpg -import < $(public.secureFilePath);
+    echo Listing gpg public keys...
+    sudo gpg -k;
+- task: DownloadSecureFile@1
+  name: secret
+  displayName: 'Download Signing Secret Key'
+  inputs:
+    secureFile: 'secret.key'
+- script: |
+    echo Installing $(secret.secureFilePath) to the keystore...;
+    sudo chown root:root $(secret.secureFilePath);
     sudo gpg -K;
-    echo Installing $(keystore.secureFilePath) to the keystore...;
-    sudo chown root:root $(keystore.secureFilePath);
-    sudo chmod a+r $(keystore.secureFilePath);
-    sudo mkdir $(gpg-dir);
-    sudo chmod a+rw $(gpg-dir);
-    sudo ln -s $(keystore.secureFilePath) $(gpg-keyring);
-    sudo chmod a+rw $(gpg-keyring);
-    echo Listing $(gpg-dir) content...
-    sudo ls -ah $(gpg-dir);
+    sudo gpg -import-secret-key < $(secret.secureFilePath);
+    echo Listing gpg secret keys...
+    sudo gpg -K;
 - task: Bash@3
   inputs:
     targetType: 'inline'
     script: |
       echo Secret vars...
-      echo gpg.homedir=$(gpg-dir)
       echo gpg.keyname=$(gpg-keyname)
-      echo gpg.keyring=$(gpg-keyring) 
       echo gpg.passphrase=$(gpg-passphrase)
       echo sonatype-oss-password=$(sonatype-oss-password)
       echo sonatype-oss-username=$(sonatype-oss-username)
@@ -40,13 +46,7 @@ steps:
     options: $(add-mvn-opts)
     mavenPomFile: 'extendedValidation-spring-boot-parent/pom.xml'
     mavenOptions: '-Xmx512m -DskipTests -Dmaven.javadoc.skip=true 
-                   -Dgpg.defaultKeyring=false
-                   -Dgpg.ascDirectory=$(gpg-dir) 
-                   -Dgpg.homedir=$(gpg-dir) 
                    -Dgpg.keyname=$(gpg-keyname) 
-                   -Dgpg.keyring=$(gpg-keyring) 
-                   -Dgpg.secretKeyring=$(gpg-keyring) 
-                   -Dgpg.publicKeyring=$(gpg-keyring) 
                    -Dgpg.passphrase=$(gpg-passphrase) 
                    -Dsonatype-oss-password=$(sonatype-oss-password) 
                    -Dsonatype-oss-username=$(sonatype-oss-username)'
@@ -56,14 +56,8 @@ steps:
     options: $(add-mvn-opts)
     mavenPomFile: 'pom.xml'
     mavenOptions: '-Xmx1024m -Dmaven.javadoc.skip=true -s maven/settings.xml
-                   -Dgpg.defaultKeyring=false 
-                   -Dgpg.useAgent=false 
-                   -Dgpg.homedir=$(gpg-dir) 
                    -Dgpg.keyname=$(gpg-keyname) 
                    -Dgpg.passphrase=$(gpg-passphrase) 
-                   -Dgpg.keyring=$(gpg-keyring) 
-                   -Dgpg.secretKeyring=$(gpg-keyring) 
-                   -Dgpg.publicKeyring=$(gpg-keyring) 
                    -Dsonatype-oss-password=$(sonatype-oss-password) 
                    -Dsonatype-oss-username=$(sonatype-oss-username)'
     publishJUnitResults: 'true'
