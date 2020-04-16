@@ -2,8 +2,8 @@
   <servers>
    	<server>
 		<id>oss-sonatype</id>
-		<username>${SONATYPE_OSS_USERNAME}</username>
-		<password>${SONATYPE_OSS_PASSWORD}</password>
+		<username>${sonatype-oss-username}</username>
+		<password>${sonatype-oss-password}</password>
 	</server>
   </servers>
 </settings>

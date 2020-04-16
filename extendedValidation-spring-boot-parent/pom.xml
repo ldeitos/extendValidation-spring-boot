@@ -78,13 +78,12 @@
 							<goal>sign</goal>
 						</goals>
 						<configuration>
-							<keyname>${GPG_KEYNAME}</keyname>
-							<passphrase>${GPG_PASSPHRASE}</passphrase>
+							<keyname>${gpg.keyname}</keyname>
+							<passphrase>${gpg.passphrase}</passphrase>
 							<defaultKeyring>false</defaultKeyring>
-							<useAgent>false</useAgent>
-							<ascDirectory>${GPG_DIR}</ascDirectory>
-							<publicKeyring>${GPG_KEYRING}</publicKeyring>
-							<secretKeyring>${GPG_KEYRING}</secretKeyring>
+							<ascDirectory>${gpg.dir}</ascDirectory>
+							<publicKeyring>${gpg.keyring}</publicKeyring>
+							<secretKeyring>${gpg.keyring}</secretKeyring>
 							<gpgArguments>
 								<arg>--pinentry-mode</arg>
 								<arg>loopback</arg>

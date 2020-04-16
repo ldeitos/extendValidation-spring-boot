@@ -22,28 +22,34 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      echo Setting env vars...
-      export GPG_DIR=$(gpg-dir)
-      export GPG_KEYNAME=$(gpg-keyname)
-      export GPG_KEYRING=$(gpg-keyring)
-      export GPG_PASSPHRASE=$(gpg-passphrase)
-      export SONATYPE_OSS_PASSWORD=$(sonatype-oss-password)
-      export SONARYPE_OSS_USERNAME=$(sonatype-oss-username)
-      echo gpg-dir=${GPG_DIR}
-      echo gpg-keyname=${GPG_KEYNAME}
-      echo gpg-keyring=${GPG_KEYRING}
-      echo gpg-passphrase=${GPG_PASSPHRASE}
-      echo sonatype-oss-password=${SONATYPE_OSS_PASSWORD}
+      echo Secret vars...
+      echo gpg.dir=$(gpg-dir)
+      echo gpg.keyname=$(gpg-keyname)
+      echo gpg.keyring=$(gpg-keyring) 
+      echo gpg.passphrase=$(gpg-passphrase)
+      echo sonatype-oss-password=$(sonatype-oss-password)
       echo sonatype-oss-username=${SONARYPE_OSS_USERNAME}
 - task: Maven@3
   inputs:
     mavenPomFile: 'extendedValidation-spring-boot-parent/pom.xml'
-    mavenOptions: '-Xmx1024m -DskipTests -Dmaven.javadoc.skip=true'
+    mavenOptions: '-Xmx1024m -DskipTests -Dmaven.javadoc.skip=true 
+                   -Dgpg.dir=$(gpg-dir) 
+                   -Dgpg.keyname=$(gpg-keyname)
+                   -Dgpg.keyring=$(gpg-keyring) 
+                   -Dgpg.passphrase=$(gpg-passphrase)
+                   -Dsonartype-oss-password=$(sonatype-oss-password)
+                   -Dsonartype-oss-username=$(sonatype-oss-username)'
     goals: 'clean install'
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx1024m -Dmaven.javadoc.skip=true -s maven/settings.xml'
+    mavenOptions: '-Xmx1024m -Dmaven.javadoc.skip=true -s maven/settings.xml 
+                   -Dgpg.dir=$(gpg-dir) 
+                   -Dgpg.keyname=$(gpg-keyname)
+                   -Dgpg.keyring=$(gpg-keyring) 
+                   -Dgpg.passphrase=$(gpg-passphrase)
+                   -Dsonartype-oss-password=$(sonatype-oss-password)
+                   -Dsonartype-oss-username=$(sonatype-oss-username)'
     publishJUnitResults: 'true'
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'clean package verify sonar:sonar deploy'
