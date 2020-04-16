@@ -14,6 +14,7 @@ steps:
   inputs:
     secureFile: 'keystore'
 - script: |
+	sudo gpg -K;
     echo Installing $(keystore.secureFilePath) to the keystore...;
     sudo chown root:root $(keystore.secureFilePath);
     sudo chmod a+r $(keystore.secureFilePath);
@@ -40,14 +41,14 @@ steps:
     mavenPomFile: 'extendedValidation-spring-boot-parent/pom.xml'
     mavenOptions: '-Xmx512m -DskipTests -Dmaven.javadoc.skip=true 
                    -Dgpg.defaultKeyring=false
-                   -Dgpg.ascDirectory=$(gpg-dir)
+                   -Dgpg.ascDirectory=$(gpg-dir) 
                    -Dgpg.homedir=$(gpg-dir) 
-                   -Dgpg.keyname=$(gpg-keyname)
-                   -Dgpg.keyring=$(gpg-keyring)
-                   -Dgpg.secretKeyring=$(gpg-keyring)
+                   -Dgpg.keyname=$(gpg-keyname) 
+                   -Dgpg.keyring=$(gpg-keyring) 
+                   -Dgpg.secretKeyring=$(gpg-keyring) 
                    -Dgpg.publicKeyring=$(gpg-keyring) 
-                   -Dgpg.passphrase=$(gpg-passphrase)
-                   -Dsonatype-oss-password=$(sonatype-oss-password)
+                   -Dgpg.passphrase=$(gpg-passphrase) 
+                   -Dsonatype-oss-password=$(sonatype-oss-password) 
                    -Dsonatype-oss-username=$(sonatype-oss-username)'
     goals: 'clean install'
 - task: Maven@3
@@ -55,15 +56,15 @@ steps:
     options: $(add-mvn-opts)
     mavenPomFile: 'pom.xml'
     mavenOptions: '-Xmx1024m -Dmaven.javadoc.skip=true -s maven/settings.xml
-                   -Dgpg.defaultKeyring=false
-                   -Dgpg.useAgent=false
+                   -Dgpg.defaultKeyring=false 
+                   -Dgpg.useAgent=false 
                    -Dgpg.homedir=$(gpg-dir) 
-                   -Dgpg.keyname=$(gpg-keyname)
-                   -Dgpg.passphrase=$(gpg-passphrase)
-                   -Dgpg.keyring=$(gpg-keyring)
-                   -Dgpg.secretKeyring=$(gpg-keyring)
+                   -Dgpg.keyname=$(gpg-keyname) 
+                   -Dgpg.passphrase=$(gpg-passphrase) 
+                   -Dgpg.keyring=$(gpg-keyring) 
+                   -Dgpg.secretKeyring=$(gpg-keyring) 
                    -Dgpg.publicKeyring=$(gpg-keyring) 
-                   -Dsonatype-oss-password=$(sonatype-oss-password)
+                   -Dsonatype-oss-password=$(sonatype-oss-password) 
                    -Dsonatype-oss-username=$(sonatype-oss-username)'
     publishJUnitResults: 'true'
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
