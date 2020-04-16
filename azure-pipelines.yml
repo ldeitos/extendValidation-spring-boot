@@ -26,7 +26,7 @@ steps:
     sudo gpg -k --homedir /gpg
     sudo gpg --homedir /gpg --import < $(public.secureFilePath)
     echo Listing gpg public keys...
-    sudo gpg -k
+    sudo gpg -kv --homedir /gpg --keyid-format short
 - task: DownloadSecureFile@1
   name: secret
   displayName: 'Download Signing Secret Key'
@@ -38,13 +38,11 @@ steps:
     sudo gpg -K --homedir /gpg
     sudo gpg --homedir /gpg --batch --import < $(secret.secureFilePath)
     echo Listing gpg secret keys...
-    sudo gpg --homedir /gpg -K
+    sudo gpg -Kv --homedir /gpg --keyid-format short
 - task: Bash@3
   inputs:
     targetType: 'inline'
     script: |
-      sudo chmod a+rw /home/vsts/.gnupg
-      sudo chmod a+r /home/vsts/.gnupg/*
       echo Secret vars...
       echo gpg.keyname=$(gpg-keyname)
       echo gpg.passphrase=$(gpg-passphrase)
