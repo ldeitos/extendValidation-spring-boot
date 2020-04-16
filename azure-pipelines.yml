@@ -21,7 +21,7 @@ steps:
     sudo ln -s $(keystore.secureFilePath) $(gpg-keyring);
     sudo chmod a+r $(gpg-keyring);
     echo Listing $(gpg-dir) content...
-    sudo ll $(gpg-dir);
+    sudo ls -ah $(gpg-dir);
 - task: Bash@3
   inputs:
     targetType: 'inline'
