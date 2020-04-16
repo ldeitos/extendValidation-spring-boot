@@ -53,7 +53,6 @@ steps:
     options: $(add-mvn-opts)
     mavenPomFile: 'extendedValidation-spring-boot-parent/pom.xml'
     mavenOptions: '-Xmx512m -DskipTests -Dmaven.javadoc.skip=true 
-                   -Dgpg.keyname=$(gpg-keyname) 
                    -Dgpg.passphrase=$(gpg-passphrase) 
                    -Dgpg.homedir=/gpg 
                    -Dsonatype-oss-password=$(sonatype-oss-password) 
@@ -64,7 +63,6 @@ steps:
     options: $(add-mvn-opts)
     mavenPomFile: 'pom.xml'
     mavenOptions: '-Xmx1024m -Dmaven.javadoc.skip=true -s maven/settings.xml
-                   -Dgpg.keyname=$(gpg-keyname) 
                    -Dgpg.passphrase=$(gpg-passphrase) 
                    -Dgpg.homedir=/gpg 
                    -Dsonatype-oss-password=$(sonatype-oss-password) 
