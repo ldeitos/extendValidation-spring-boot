@@ -12,7 +12,7 @@ steps:
   name: public
   displayName: 'Download Signing Public Key'
   inputs:
-    secureFile: 'public.key'
+    secureFile: 'public.asc'
 - script: |
     echo Installing $(public.secureFilePath) to the keystore...;
     sudo chown root:root $(public.secureFilePath);
@@ -24,10 +24,9 @@ steps:
   name: secret
   displayName: 'Download Signing Secret Key'
   inputs:
-    secureFile: 'secret.key'
+    secureFile: 'secret.asc'
 - script: |
     echo Installing $(secret.secureFilePath) to the keystore...;
-    sudo export GPG_TTY=$$(tty)
     sudo chown root:root $(secret.secureFilePath);
     sudo gpg -K;
     sudo gpg --import < $(secret.secureFilePath);
