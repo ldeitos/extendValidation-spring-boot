@@ -23,10 +23,7 @@ steps:
 - script: |
     echo Installing $(public.secureFilePath) to the keystore...
     sudo chown root:root $(public.secureFilePath)
-    sudo gpg -k --homedir /gpg
     sudo gpg --homedir /gpg --import < $(public.secureFilePath)
-    echo Listing gpg public keys...
-    sudo gpg -kv --homedir /gpg --keyid-format short
 - task: DownloadSecureFile@1
   name: secret
   displayName: 'Download Signing Secret Key'
@@ -35,19 +32,19 @@ steps:
 - script: |
     echo Installing $(secret.secureFilePath) to the keystore...
     sudo chown root:root $(secret.secureFilePath)
-    sudo gpg -K --homedir /gpg
     sudo gpg --homedir /gpg --batch --import < $(secret.secureFilePath)
-    echo Listing gpg secret keys...
-    sudo gpg -Kv --homedir /gpg --keyid-format short
 - task: Bash@3
   inputs:
     targetType: 'inline'
     script: |
+      sudo chmod a+r /gpg/*
       echo Secret vars...
       echo gpg.keyname=$(gpg-keyname)
       echo gpg.passphrase=$(gpg-passphrase)
       echo sonatype-oss-password=$(sonatype-oss-password)
       echo sonatype-oss-username=$(sonatype-oss-username)
+      echo Listing gpg keys...
+      sudo gpg -Kkv --homedir /gpg --keyid-format short
 - task: Maven@3
   inputs:
     options: $(add-mvn-opts)
