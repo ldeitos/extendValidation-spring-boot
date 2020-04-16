@@ -17,7 +17,8 @@ steps:
     echo Installing $(keystore.secureFilePath) to the keystore...;
     sudo chown root:root $(keystore.secureFilePath);
     sudo chmod a+r $(keystore.secureFilePath);
-    sudo mkdir $(gpg-dir)
+    sudo mkdir $(gpg-dir);
+    sudo chmod a+rw $(gpg-dir);
     sudo ln -s $(keystore.secureFilePath) $(gpg-keyring);
     sudo chmod a+rw $(gpg-keyring);
     echo Listing $(gpg-dir) content...
