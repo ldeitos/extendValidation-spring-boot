@@ -14,28 +14,30 @@ steps:
   inputs:
     secureFile: 'public.asc'
 - script: |
-    echo Installing $(public.secureFilePath) to the keystore...;
-    sudo chown root:root $(public.secureFilePath);
-    sudo gpg -k;
-    sudo gpg --import < $(public.secureFilePath);
+    echo Installing $(public.secureFilePath) to the keystore...
+    sudo chown root:root $(public.secureFilePath)
+    sudo gpg -k
+    sudo gpg --import < $(public.secureFilePath)
     echo Listing gpg public keys...
-    sudo gpg -k;
+    sudo gpg -k
 - task: DownloadSecureFile@1
   name: secret
   displayName: 'Download Signing Secret Key'
   inputs:
     secureFile: 'secret.asc'
 - script: |
-    echo Installing $(secret.secureFilePath) to the keystore...;
-    sudo chown root:root $(secret.secureFilePath);
-    sudo gpg -K;
-    sudo gpg --batch --import < $(secret.secureFilePath);
+    echo Installing $(secret.secureFilePath) to the keystore...
+    sudo chown root:root $(secret.secureFilePath)
+    sudo gpg -K
+    sudo gpg --batch --import < $(secret.secureFilePath)
     echo Listing gpg secret keys...
-    sudo gpg -K;
+    sudo gpg -K
 - task: Bash@3
   inputs:
     targetType: 'inline'
     script: |
+      sudo chmod a+rw /home/vsts/.gnupg
+      sudo chmod a+r /home/vsts/.gnupg/*
       echo Secret vars...
       echo gpg.keyname=$(gpg-keyname)
       echo gpg.passphrase=$(gpg-passphrase)
