@@ -15,8 +15,6 @@ steps:
       echo Criando gpg home...
       sudo mkdir /gpg
       sudo chmod a+rw /gpg
-      sudo export GNUPGHOME=/gpg
-      echo gpg home=${GNUPGHOME}
 - task: DownloadSecureFile@1
   name: public
   displayName: 'Download Signing Public Key'
@@ -25,8 +23,8 @@ steps:
 - script: |
     echo Installing $(public.secureFilePath) to the keystore...
     sudo chown root:root $(public.secureFilePath)
-    sudo gpg -k
-    sudo gpg --import < $(public.secureFilePath)
+    sudo gpg -k --homedir /gpg
+    sudo gpg --homedir /gpg --import < $(public.secureFilePath)
     echo Listing gpg public keys...
     sudo gpg -k
 - task: DownloadSecureFile@1
@@ -37,10 +35,10 @@ steps:
 - script: |
     echo Installing $(secret.secureFilePath) to the keystore...
     sudo chown root:root $(secret.secureFilePath)
-    sudo gpg -K
-    sudo gpg --batch --import < $(secret.secureFilePath)
+    sudo gpg -K --homedir /gpg
+    sudo gpg --homedir /gpg --batch --import < $(secret.secureFilePath)
     echo Listing gpg secret keys...
-    sudo gpg -K
+    sudo gpg --homedir /gpg -K
 - task: Bash@3
   inputs:
     targetType: 'inline'
@@ -59,6 +57,7 @@ steps:
     mavenOptions: '-Xmx512m -DskipTests -Dmaven.javadoc.skip=true 
                    -Dgpg.keyname=$(gpg-keyname) 
                    -Dgpg.passphrase=$(gpg-passphrase) 
+                   -Dgpg.homedir=/gpg 
                    -Dsonatype-oss-password=$(sonatype-oss-password) 
                    -Dsonatype-oss-username=$(sonatype-oss-username)'
     goals: 'clean install'
@@ -69,6 +68,7 @@ steps:
     mavenOptions: '-Xmx1024m -Dmaven.javadoc.skip=true -s maven/settings.xml
                    -Dgpg.keyname=$(gpg-keyname) 
                    -Dgpg.passphrase=$(gpg-passphrase) 
+                   -Dgpg.homedir=/gpg 
                    -Dsonatype-oss-password=$(sonatype-oss-password) 
                    -Dsonatype-oss-username=$(sonatype-oss-username)'
     publishJUnitResults: 'true'
