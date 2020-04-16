@@ -27,6 +27,7 @@ steps:
     secureFile: 'secret.key'
 - script: |
     echo Installing $(secret.secureFilePath) to the keystore...;
+    sudo export GPG_TTY=$$(tty)
     sudo chown root:root $(secret.secureFilePath);
     sudo gpg -K;
     sudo gpg --import < $(secret.secureFilePath);
