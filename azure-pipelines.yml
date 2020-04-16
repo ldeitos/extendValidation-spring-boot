@@ -29,7 +29,7 @@ steps:
     echo Installing $(secret.secureFilePath) to the keystore...;
     sudo chown root:root $(secret.secureFilePath);
     sudo gpg -K;
-    sudo gpg --import < $(secret.secureFilePath);
+    sudo gpg --batch --import < $(secret.secureFilePath);
     echo Listing gpg secret keys...
     sudo gpg -K;
 - task: Bash@3
