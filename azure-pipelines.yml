@@ -54,22 +54,21 @@ steps:
     options: $(add-mvn-opts)
     mavenPomFile: 'extendedValidation-spring-boot-parent/pom.xml'
     mavenOptions: '-Xmx512m -DskipTests -Dmaven.javadoc.skip=true
-                   -Dgpg.keyname=$(gpg-keyname)  
+                   -Dgpg.keyname=$(gpg-keyname) 
                    -Dgpg.passphrase=$(gpg-passphrase) 
-                   -Dgpg.homedir=/gpg 
-                   -Dsonatype-oss-password=$(sonatype-oss-password) 
-                   -Dsonatype-oss-username=$(sonatype-oss-username)'
+                   -Dgpg.homedir=/gpg'
     goals: 'clean install'
 - task: Maven@3
   inputs:
-    options: $(add-mvn-opts)
+    options: -s maven/settings.xml $(add-mvn-opts)
     mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx1024m -Dmaven.javadoc.skip=true -s maven/settings.xml
+    mavenOptions: '-Xmx1024m -Dmaven.javadoc.skip=true 
+                   -Dgpg.keyname=$(gpg-keyname) 
                    -Dgpg.passphrase=$(gpg-passphrase) 
                    -Dgpg.homedir=/gpg 
                    -Dsonatype-oss-password=$(sonatype-oss-password) 
                    -Dsonatype-oss-username=$(sonatype-oss-username)'
     publishJUnitResults: 'true'
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'clean package verify sonar:sonar deploy'
+    goals: 'clean install verify sonar:sonar deploy'
     
