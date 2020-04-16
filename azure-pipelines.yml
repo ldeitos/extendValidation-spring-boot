@@ -37,12 +37,14 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      sudo chmod a+r /gpg/*
+      sudo chmod a+rw /gpg/*
       echo Secret vars...
       echo gpg.keyname=$(gpg-keyname)
       echo gpg.passphrase=$(gpg-passphrase)
       echo sonatype-oss-password=$(sonatype-oss-password)
       echo sonatype-oss-username=$(sonatype-oss-username)
+      echo Listing gpghome content...
+      ls /gpg/
       echo Listing gpg public keys...
       sudo gpg -kv --homedir /gpg --keyid-format short
       echo Listing gpg secret keys...
@@ -51,7 +53,8 @@ steps:
   inputs:
     options: $(add-mvn-opts)
     mavenPomFile: 'extendedValidation-spring-boot-parent/pom.xml'
-    mavenOptions: '-Xmx512m -DskipTests -Dmaven.javadoc.skip=true 
+    mavenOptions: '-Xmx512m -DskipTests -Dmaven.javadoc.skip=true
+                   -Dgpg.keyname=$(gpg-keyname)  
                    -Dgpg.passphrase=$(gpg-passphrase) 
                    -Dgpg.homedir=/gpg 
                    -Dsonatype-oss-password=$(sonatype-oss-password) 
