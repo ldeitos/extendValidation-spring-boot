@@ -25,7 +25,7 @@ steps:
     targetType: 'inline'
     script: |
       echo Secret vars...
-      echo gpg.dir=$(gpg-dir)
+      echo gpg.homedir=$(gpg-dir)
       echo gpg.keyname=$(gpg-keyname)
       echo gpg.keyring=$(gpg-keyring) 
       echo gpg.passphrase=$(gpg-passphrase)
@@ -35,9 +35,11 @@ steps:
   inputs:
     mavenPomFile: 'extendedValidation-spring-boot-parent/pom.xml'
     mavenOptions: '-Xmx1024m -DskipTests -Dmaven.javadoc.skip=true 
-                   -Dgpg.dir=$(gpg-dir) 
+                   -Dgpg.defaultKeyring=false
+                   -Dgpg.homedir=$(gpg-dir) 
                    -Dgpg.keyname=$(gpg-keyname)
-                   -Dgpg.keyring=$(gpg-keyring) 
+                   -Dgpg.secretKeyring=$(gpg-keyring)
+                   -Dgpg.publicKeyring=$(gpg-keyring) 
                    -Dgpg.passphrase=$(gpg-passphrase)
                    -Dsonatype-oss-password=$(sonatype-oss-password)
                    -Dsonatype-oss-username=$(sonatype-oss-username)'
@@ -46,9 +48,11 @@ steps:
   inputs:
     mavenPomFile: 'pom.xml'
     mavenOptions: '-Xmx1024m -Dmaven.javadoc.skip=true -s maven/settings.xml 
-                   -Dgpg.dir=$(gpg-dir) 
+                   -Dgpg.defaultKeyring=false
+                   -Dgpg.homedir=$(gpg-dir) 
                    -Dgpg.keyname=$(gpg-keyname)
-                   -Dgpg.keyring=$(gpg-keyring) 
+                   -Dgpg.secretKeyring=$(gpg-keyring)
+                   -Dgpg.publicKeyring=$(gpg-keyring) 
                    -Dgpg.passphrase=$(gpg-passphrase)
                    -Dsonatype-oss-password=$(sonatype-oss-password)
                    -Dsonatype-oss-username=$(sonatype-oss-username)'
