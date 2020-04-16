@@ -43,6 +43,7 @@ steps:
                    -Dgpg.ascDirectory=$(gpg-dir)
                    -Dgpg.homedir=$(gpg-dir) 
                    -Dgpg.keyname=$(gpg-keyname)
+                   -Dgpg.keyring=$(gpg-keyring)
                    -Dgpg.secretKeyring=$(gpg-keyring)
                    -Dgpg.publicKeyring=$(gpg-keyring) 
                    -Dgpg.passphrase=$(gpg-passphrase)
@@ -55,11 +56,13 @@ steps:
     mavenPomFile: 'pom.xml'
     mavenOptions: '-Xmx1024m -Dmaven.javadoc.skip=true -s maven/settings.xml
                    -Dgpg.defaultKeyring=false
+                   -Dgpg.useAgent=false
                    -Dgpg.homedir=$(gpg-dir) 
                    -Dgpg.keyname=$(gpg-keyname)
+                   -Dgpg.passphrase=$(gpg-passphrase)
+                   -Dgpg.keyring=$(gpg-keyring)
                    -Dgpg.secretKeyring=$(gpg-keyring)
                    -Dgpg.publicKeyring=$(gpg-keyring) 
-                   -Dgpg.passphrase=$(gpg-passphrase)
                    -Dsonatype-oss-password=$(sonatype-oss-password)
                    -Dsonatype-oss-username=$(sonatype-oss-username)'
     publishJUnitResults: 'true'
