@@ -43,8 +43,10 @@ steps:
       echo gpg.passphrase=$(gpg-passphrase)
       echo sonatype-oss-password=$(sonatype-oss-password)
       echo sonatype-oss-username=$(sonatype-oss-username)
-      echo Listing gpg keys...
-      sudo gpg -Kkv --homedir /gpg --keyid-format short
+      echo Listing gpg public keys...
+      sudo gpg -kv --homedir /gpg --keyid-format short
+      echo Listing gpg secret keys...
+      sudo gpg -Kv --homedir /gpg --keyid-format short
 - task: Maven@3
   inputs:
     options: $(add-mvn-opts)
