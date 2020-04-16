@@ -17,7 +17,9 @@ steps:
     echo Installing $(keystore.secureFilePath) to the keystore...;
     sudo chown root:root $(keystore.secureFilePath);
     sudo chmod a+r $(keystore.secureFilePath);
-    sudo ln -s $(keystore.secureFilePath) $(gpg-keyring);
+    sudo mkdir /tmp/$(gpg-dir)
+    sudo ln -s $(keystore.secureFilePath) $(gpg-dir)/$(keystore.secureFilePath);
+    sudo ls $(gpg-dir);
 - task: Bash@3
   inputs:
     targetType: 'inline'
@@ -28,7 +30,7 @@ steps:
       echo gpg.keyring=$(gpg-keyring) 
       echo gpg.passphrase=$(gpg-passphrase)
       echo sonatype-oss-password=$(sonatype-oss-password)
-      echo sonatype-oss-username=${SONARYPE_OSS_USERNAME}
+      echo sonatype-oss-username=$(sonatype-oss-username)
 - task: Maven@3
   inputs:
     mavenPomFile: 'extendedValidation-spring-boot-parent/pom.xml'
@@ -37,8 +39,8 @@ steps:
                    -Dgpg.keyname=$(gpg-keyname)
                    -Dgpg.keyring=$(gpg-keyring) 
                    -Dgpg.passphrase=$(gpg-passphrase)
-                   -Dsonartype-oss-password=$(sonatype-oss-password)
-                   -Dsonartype-oss-username=$(sonatype-oss-username)'
+                   -Dsonatype-oss-password=$(sonatype-oss-password)
+                   -Dsonatype-oss-username=$(sonatype-oss-username)'
     goals: 'clean install'
 - task: Maven@3
   inputs:
@@ -48,8 +50,8 @@ steps:
                    -Dgpg.keyname=$(gpg-keyname)
                    -Dgpg.keyring=$(gpg-keyring) 
                    -Dgpg.passphrase=$(gpg-passphrase)
-                   -Dsonartype-oss-password=$(sonatype-oss-password)
-                   -Dsonartype-oss-username=$(sonatype-oss-username)'
+                   -Dsonatype-oss-password=$(sonatype-oss-password)
+                   -Dsonatype-oss-username=$(sonatype-oss-username)'
     publishJUnitResults: 'true'
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'clean package verify sonar:sonar deploy'
