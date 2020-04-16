@@ -36,8 +36,9 @@ steps:
       echo sonatype-oss-username=$(sonatype-oss-username)
 - task: Maven@3
   inputs:
+    options: $(add-mvn-opts)
     mavenPomFile: 'extendedValidation-spring-boot-parent/pom.xml'
-    mavenOptions: '-Xmx512m -DskipTests -Dmaven.javadoc.skip=true $(add-mvn-opts) 
+    mavenOptions: '-Xmx512m -DskipTests -Dmaven.javadoc.skip=true 
                    -Dgpg.defaultKeyring=false
                    -Dgpg.ascDirectory=$(gpg-dir)
                    -Dgpg.homedir=$(gpg-dir) 
@@ -50,8 +51,9 @@ steps:
     goals: 'clean install'
 - task: Maven@3
   inputs:
+    options: $(add-mvn-opts)
     mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx1024m -Dmaven.javadoc.skip=true -s maven/settings.xml $(add-mvn-opts)
+    mavenOptions: '-Xmx1024m -Dmaven.javadoc.skip=true -s maven/settings.xml
                    -Dgpg.defaultKeyring=false
                    -Dgpg.homedir=$(gpg-dir) 
                    -Dgpg.keyname=$(gpg-keyname)
