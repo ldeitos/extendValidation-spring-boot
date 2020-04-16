@@ -14,7 +14,7 @@ steps:
   inputs:
     secureFile: 'keystore'
 - script: |
-	sudo gpg -K;
+    sudo gpg -K;
     echo Installing $(keystore.secureFilePath) to the keystore...;
     sudo chown root:root $(keystore.secureFilePath);
     sudo chmod a+r $(keystore.secureFilePath);
@@ -69,3 +69,4 @@ steps:
     publishJUnitResults: 'true'
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'clean package verify sonar:sonar deploy'
+    
