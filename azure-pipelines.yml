@@ -19,7 +19,7 @@ steps:
     sudo chmod a+r $(keystore.secureFilePath);
     sudo mkdir $(gpg-dir)
     sudo ln -s $(keystore.secureFilePath) $(gpg-keyring);
-    sudo chmod a+r $(gpg-keyring);
+    sudo chmod a+rw $(gpg-keyring);
     echo Listing $(gpg-dir) content...
     sudo ls -ah $(gpg-dir);
 - task: Bash@3
