@@ -62,7 +62,7 @@ steps:
   inputs:
     options: -s maven/settings.xml $(add-mvn-opts)
     mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx1024m -Dmaven.javadoc.skip=true 
+    mavenOptions: '-Xmx1024m 
                    -Dgpg.keyname=$(gpg-keyname) 
                    -Dgpg.passphrase=$(gpg-passphrase) 
                    -Dgpg.homedir=/gpg 
@@ -70,5 +70,5 @@ steps:
                    -Dsonatype-oss-username=$(sonatype-oss-username)'
     publishJUnitResults: 'true'
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'clean install verify sonar:sonar deploy'
+    goals: 'clean install sonar:sonar $(lst_mvn_goals)'
     
