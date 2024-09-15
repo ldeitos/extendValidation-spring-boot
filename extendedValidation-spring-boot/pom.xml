@@ -10,7 +10,7 @@
 		<groupId>com.github.ldeitos</groupId>
 		<artifactId>extendedValidation-spring-boot-parent</artifactId>
 		<version>3.3.3</version>
-		<relativePath>../extendedValidation-parent</relativePath>
+		<relativePath>../extendedValidation-spring-boot-parent</relativePath>
 	</parent>
 	<licenses>
 		<license>
