@@ -9,6 +9,8 @@ import static com.github.ldeitos.constants.Constants.PATH_CONF_VALIDATION_CLOSUR
 import static com.github.ldeitos.constants.Constants.PRESENTATION_MESSAGE_PATTERN;
 import static java.lang.String.format;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,9 +26,6 @@ import org.slf4j.LoggerFactory;
 
 import com.github.ldeitos.constants.Constants;
 import com.github.ldeitos.validation.impl.configuration.dto.ConfigurationDTO;
-
-import io.github.classgraph.ClassGraph;
-import io.github.classgraph.ScanResult;
 
 /**
  * Loader to {@link Constants#CONFIGURATION_FILE}.
@@ -60,15 +59,16 @@ class ConfigurationLoader {
 		log.info(format("Loading configuration by %s/%s files in class path.", configPath, configFileName));
 
 		XMLInputFactory inputFactory = XMLInputFactory.newInstance();
-		try (ScanResult scanResult = new ClassGraph().whitelistPaths(configPath).scan()) {
-			scanResult.getResourcesWithLeafName(configFileName).forEachInputStream((r, is) -> {
-				try {
-					loadFromXMLFiles(inputFactory.createXMLEventReader(is));
-				} catch (XMLStreamException e) {
-					log.warn(format("Error on obtain %s files in class path: [%s]", configFileName, e.getMessage()));
-					log.warn("Loading by default configuration...");
-				}
-			});
+		try (InputStream is = ConfigurationLoader.class.getClassLoader().getResourceAsStream(configProvider.getConfigFileLocation())) {
+			try {
+				loadFromXMLFiles(inputFactory.createXMLEventReader(is));
+			} catch (XMLStreamException e) {
+				log.warn(format("Error on obtain %s files in class path: [%s]", configFileName, e.getMessage()));
+				log.warn("Loading by default configuration...");
+			}
+		} catch (IOException ex){
+			log.warn(format("Error on obtain %s files in class path: [%s]", configFileName, ex.getMessage()));
+			log.warn("Loading by default configuration...");
 		}
 
 		if (configuration == null) {

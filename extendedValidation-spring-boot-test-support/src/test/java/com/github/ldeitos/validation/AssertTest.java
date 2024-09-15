@@ -10,9 +10,10 @@ import static java.util.Arrays.asList;
 
 import java.util.Set;
 
-import javax.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolation;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -34,7 +35,7 @@ public class AssertTest extends ExtendedValidationBaseTest {
 
 	@Autowired
 	@Qualifier(EXTENDED_VALIDATOR_QUALIFIER)
-	private javax.validation.Validator defaultValidator;
+	private jakarta.validation.Validator defaultValidator;
 
 	@Test
 	public void testAssertContainMessage() {
@@ -52,28 +53,34 @@ public class AssertTest extends ExtendedValidationBaseTest {
 		assertContainsAllMessagesInConstraints(asList(EXPECTED_1, EXPECTED_2), violations);
 	}
 
-	@Test(expected = AssertionError.class)
+	@Test()
 	public void testAssertContainMessageWrongMessage() {
-		ToTest toTest = new ToTest();
-		Set<ConstraintViolation<ToTest>> violations = defaultValidator.validate(toTest);
+		Assertions.assertThrows(AssertionError.class, () -> {
+			ToTest toTest = new ToTest();
+			Set<ConstraintViolation<ToTest>> violations = defaultValidator.validate(toTest);
 
-		assertContainMessageInConstraints(UNXPECTED, violations);
+			assertContainMessageInConstraints(UNXPECTED, violations);
+		});
 	}
 
-	@Test(expected = AssertionError.class)
+	@Test()
 	public void testAssertContainsAllMessageOneWrongMessage() {
-		ToTest toTest = new ToTest("test");
-		Set<ConstraintViolation<ToTest>> violations = defaultValidator.validate(toTest);
+		Assertions.assertThrows(AssertionError.class, () -> {
+			ToTest toTest = new ToTest("test");
+			Set<ConstraintViolation<ToTest>> violations = defaultValidator.validate(toTest);
 
-		assertContainsAllMessagesInConstraints(asList(EXPECTED_1, UNXPECTED), violations);
+			assertContainsAllMessagesInConstraints(asList(EXPECTED_1, UNXPECTED), violations);
+		});
 	}
 
-	@Test(expected = AssertionError.class)
+	@Test()
 	public void testAssertContainsAllMessageOneMoreMessage() {
-		ToTest toTest = new ToTest("test");
-		Set<ConstraintViolation<ToTest>> violations = defaultValidator.validate(toTest);
+		Assertions.assertThrows(AssertionError.class, () -> {
+			ToTest toTest = new ToTest("test");
+			Set<ConstraintViolation<ToTest>> violations = defaultValidator.validate(toTest);
 
-		assertContainsAllMessagesInConstraints(asList(EXPECTED_1, EXPECTED_2, OTHER_MESSAGE), violations);
+			assertContainsAllMessagesInConstraints(asList(EXPECTED_1, EXPECTED_2, OTHER_MESSAGE), violations);
+		});
 	}
 
 	@Test
@@ -95,20 +102,24 @@ public class AssertTest extends ExtendedValidationBaseTest {
 		assertContainsAllMessagesInConstraints(asList(EXPECTED_1), validate(defaultValidator, toTest));
 	}
 
-	@Test(expected = AssertionError.class)
+	@Test()
 	public void testAssertContainsAllMessageOneWrongMessageWithRunner() {
-		ToTest toTest = new ToTest("test");
+		Assertions.assertThrows(AssertionError.class, () -> {
+			ToTest toTest = new ToTest("test");
 
-		assertContainsAllMessagesInConstraints(asList(EXPECTED_1, UNXPECTED),
-			validate(defaultValidator, toTest));
+			assertContainsAllMessagesInConstraints(asList(EXPECTED_1, UNXPECTED),
+				validate(defaultValidator, toTest));
+		});
 	}
 
-	@Test(expected = AssertionError.class)
+	@Test()
 	public void testAssertContainsAllMessageOneMoreMessageWithRunner() {
-		ToTest toTest = new ToTest("test");
+		Assertions.assertThrows(AssertionError.class, () -> {
+			ToTest toTest = new ToTest("test");
 
-		assertContainsAllMessagesInConstraints(asList(EXPECTED_1, EXPECTED_2, OTHER_MESSAGE),
-		    validate(defaultValidator, toTest));
+			assertContainsAllMessagesInConstraints(asList(EXPECTED_1, EXPECTED_2, OTHER_MESSAGE),
+				validate(defaultValidator, toTest));
+		});
 	}
 
 	@Test
@@ -124,20 +135,24 @@ public class AssertTest extends ExtendedValidationBaseTest {
 			validate(extendedValidator, toTest));
 	}
 
-	@Test(expected = AssertionError.class)
+	@Test()
 	public void testAssertContainsAllMessageExtededOneWrongMessageWithRunner() {
-		ToTest toTest = new ToTest("test");
+		Assertions.assertThrows(AssertionError.class, () -> {
+			ToTest toTest = new ToTest("test");
 
-		assertContainsAllMessagesInMessages(asList(EXPECTED_1, UNXPECTED),
-			validate(extendedValidator, toTest));
+			assertContainsAllMessagesInMessages(asList(EXPECTED_1, UNXPECTED),
+				validate(extendedValidator, toTest));
+		});
 	}
 
-	@Test(expected = AssertionError.class)
+	@Test()
 	public void testAssertContainsAllMessageExtededOneMoreMessageWithRunner() {
-		ToTest toTest = new ToTest("test");
+		Assertions.assertThrows(AssertionError.class, () -> {
+			ToTest toTest = new ToTest("test");
 
-		assertContainsAllMessagesInMessages(asList(EXPECTED_1, EXPECTED_2, OTHER_MESSAGE),
-		    validate(extendedValidator, toTest));
+			assertContainsAllMessagesInMessages(asList(EXPECTED_1, EXPECTED_2, OTHER_MESSAGE),
+				validate(extendedValidator, toTest));
+		});
 	}
 
 }

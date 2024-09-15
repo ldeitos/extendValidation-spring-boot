@@ -2,17 +2,14 @@ package com.github.ldeitos.test.base;
 
 import static com.github.ldeitos.constants.Constants.EXTENDED_VALIDATOR_QUALIFIER;
 
-import javax.validation.Validator;
+import jakarta.validation.Validator;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-
 import com.github.ldeitos.bootstrap.ExtendedValidationBootstrap;
 import com.github.ldeitos.bootstrap.SBContext;
 import com.github.ldeitos.test.base.stubs.TestCustomValidationClosure;
@@ -38,7 +35,7 @@ import com.github.ldeitos.validators.PatternValidatorImpl;
 import com.github.ldeitos.validators.RangeValidatorImpl;
 import com.github.ldeitos.validators.SizeValidatorImpl;
 
-@RunWith(SpringRunner.class)
+
 @SpringBootTest(classes = { ExtendedValidationBootstrap.class, SBContext.class, ValidatorImpl.class,
 		MultipleBundlesSource.class, NotEmptyValidatorImpl.class, EmptyValidatorImpl.class, PatternValidatorImpl.class,
 		DigitsValidatorImpl.class, SizeValidatorImpl.class, MinDecimalValidatorImpl.class, MinValidatorImpl.class,
@@ -74,13 +71,13 @@ public abstract class BaseTest {
 		}
 	};
 
-	@BeforeClass
+	@BeforeAll
 	public static void setup() {
 		System.setProperty("org.jboss.weld.nonPortableMode", "true");
 		System.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "off");
 	}
 
-	@AfterClass
+	@AfterAll
 	public static void shutdown() {
 		System.clearProperty("org.jboss.weld.nonPortableMode");
 	}

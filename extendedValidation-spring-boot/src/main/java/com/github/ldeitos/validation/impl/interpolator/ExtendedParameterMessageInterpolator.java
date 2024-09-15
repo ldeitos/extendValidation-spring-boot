@@ -1,11 +1,11 @@
 package com.github.ldeitos.validation.impl.interpolator;
 
 import static com.github.ldeitos.validation.impl.util.PresentationMessageFormatter.format;
-import static javax.validation.Validation.byDefaultProvider;
+import static jakarta.validation.Validation.byDefaultProvider;
 
 import java.util.Locale;
 
-import javax.validation.MessageInterpolator;
+import jakarta.validation.MessageInterpolator;
 
 import org.springframework.stereotype.Component;
 

@@ -8,8 +8,8 @@ import java.lang.annotation.Annotation;
 import java.security.InvalidParameterException;
 import java.util.function.Predicate;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;

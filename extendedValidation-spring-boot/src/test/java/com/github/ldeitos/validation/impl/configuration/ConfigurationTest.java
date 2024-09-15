@@ -3,23 +3,20 @@ package com.github.ldeitos.validation.impl.configuration;
 import static com.github.ldeitos.constants.Constants.MESSAGE_FILES_SYSTEM_PROPERTY;
 import static com.github.ldeitos.validation.impl.configuration.Configuration.getConfiguration;
 import static java.lang.System.setProperty;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-
 import com.github.ldeitos.bootstrap.ExtendedValidationBootstrap;
 import com.github.ldeitos.bootstrap.SBContext;
-import com.github.ldeitos.validation.ValidationClosure;
 import com.github.ldeitos.validation.impl.interpolator.TestMessageSource;
 import com.github.ldeitos.validation.impl.util.DefaultValidationClosure;
 
-@RunWith(SpringRunner.class)
+
 @SpringBootTest(classes = { ExtendedValidationBootstrap.class, SBContext.class, TestMessageSource.class,
 		ConfigInfoProvider.class, DefaultValidationClosure.class })
 public class ConfigurationTest {
@@ -41,7 +38,7 @@ public class ConfigurationTest {
 
 	private Configuration configuration;
 	
-	@Before
+	@BeforeEach
 	public void setup() {
 		configuration = getConfiguration(configProvider);
 	}

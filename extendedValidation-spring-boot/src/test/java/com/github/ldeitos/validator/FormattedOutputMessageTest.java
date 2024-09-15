@@ -1,20 +1,20 @@
 package com.github.ldeitos.validator;
 
 import static com.github.ldeitos.constants.Constants.EXTENDED_VALIDATOR_QUALIFIER;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validator;
 
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -47,7 +47,7 @@ import com.github.ldeitos.validators.PatternValidatorImpl;
 import com.github.ldeitos.validators.RangeValidatorImpl;
 import com.github.ldeitos.validators.SizeValidatorImpl;
 
-@RunWith(SpringRunner.class)
+
 @SpringBootTest(classes = { ExtendedValidationBootstrap.class, SBContext.class, ValidatorImpl.class,
 		MultipleBundlesSource.class, NotEmptyValidatorImpl.class, EmptyValidatorImpl.class, PatternValidatorImpl.class,
 		DigitsValidatorImpl.class, SizeValidatorImpl.class, MinDecimalValidatorImpl.class, MinValidatorImpl.class,
@@ -79,12 +79,13 @@ public class FormattedOutputMessageTest {
 		return validador;
 	}
 
-	@Before
+	@BeforeEach
 	public void setup() {
+		Configuration.unload();
 		Configuration.load(cip);
 	}
 	
-	@AfterClass
+	@AfterAll
 	public static void shutdown() {
 		Configuration.unload();
 	}

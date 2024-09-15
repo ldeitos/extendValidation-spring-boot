@@ -1,6 +1,6 @@
 package com.github.ldeitos.constants;
 
-import javax.validation.Validator;
+import jakarta.validation.Validator;
 
 import com.github.ldeitos.validation.MessagesSource;
 import com.github.ldeitos.validation.ValidationClosure;

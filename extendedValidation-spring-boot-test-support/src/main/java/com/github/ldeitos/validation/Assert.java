@@ -3,7 +3,7 @@ package com.github.ldeitos.validation;
 import static java.lang.String.format;
 import static java.util.Collections.sort;
 import static org.apache.commons.collections4.CollectionUtils.size;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -11,15 +11,15 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validator;
 
 public class Assert {
 
 
 	public static void assertContainMessage(String description, String expectedMessage,
 		Collection<String> messages) {
-		assertTrue(description, messages.contains(expectedMessage));
+		 assertTrue(messages.contains(expectedMessage), description);
 	}
 
 	public static void assertContainMessage(String expectedMessage, Collection<String> messages) {
@@ -69,7 +69,7 @@ public class Assert {
 	public static void assertContainsAllMessages(String description, Collection<String> expectedMessage,
 	    Collection<String> messages) {
 		boolean exprectedMaxSameSize = size(expectedMessage) <= size(messages);
-		assertTrue(description, exprectedMaxSameSize && messages.containsAll(expectedMessage));
+		assertTrue(exprectedMaxSameSize && messages.containsAll(expectedMessage), description);
 	}
 
 	public static void assertContainsAllMessages(Collection<String> expectedMessage,

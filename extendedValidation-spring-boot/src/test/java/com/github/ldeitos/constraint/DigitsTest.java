@@ -1,9 +1,10 @@
 package com.github.ldeitos.constraint;
 
 import static com.github.ldeitos.constants.Constants.EXTENDED_VALIDATOR_QUALIFIER;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -11,11 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.ValidationException;
-import javax.validation.Validator;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ValidationException;
+import jakarta.validation.Validator;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -62,10 +63,12 @@ public class DigitsTest extends BaseTest {
 		assertEquals(MENSAGEM_ESPERADA, violacoes.iterator().next().getMessage());
 	}
 
-	@Test(expected = ValidationException.class)
+	@Test()
 	public void testDigitsStringEmptyInvalid() {
-		TesteString var = new TesteString("");
-		validador.validate(var);
+		assertThrows(ValidationException.class, () -> {
+			TesteString var = new TesteString("");
+			validador.validate(var);
+		});
 	}
 
 	@Test
@@ -361,22 +364,28 @@ public class DigitsTest extends BaseTest {
 		assertEquals(MENSAGEM_ESPERADA, violacoes.iterator().next().getMessage());
 	}
 
-	@Test(expected = ValidationException.class)
+	@Test()
 	public void testInvalidType() {
-		TesteInvalidType var = new TesteInvalidType();
-		validador.validate(var);
+		assertThrows(ValidationException.class, () -> {
+			TesteInvalidType var = new TesteInvalidType();
+			validador.validate(var);
+		});
 	}
 
-	@Test(expected = ValidationException.class)
+	@Test()
 	public void testInvalidIntegerParam() {
-		TesteInvalidInteger var = new TesteInvalidInteger();
-		validador.validate(var);
+		assertThrows(ValidationException.class, () -> {
+			TesteInvalidInteger var = new TesteInvalidInteger();
+			validador.validate(var);
+		});
 	}
 
-	@Test(expected = ValidationException.class)
+	@Test()
 	public void testInvalidFractionParam() {
-		TesteInvalidFraction var = new TesteInvalidFraction();
-		validador.validate(var);
+		assertThrows(ValidationException.class, () -> {
+			TesteInvalidFraction var = new TesteInvalidFraction();
+			validador.validate(var);
+		});
 	}
 
 	static class TesteInvalidInteger {

@@ -1,19 +1,20 @@
 package com.github.ldeitos.validator;
 
 import static com.github.ldeitos.test.base.GeneralTestConfiguration.ENABLE_REAL_IMPLEMETATION;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Iterator;
 import java.util.Set;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.ValidationException;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ValidationException;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.github.ldeitos.bootstrap.ExtendedValidationBootstrap;
@@ -85,7 +86,7 @@ import com.github.ldeitos.validators.SizeValidatorImpl;
 		UserValidatorFullPathListExtendedImpl.class, InvalidMappedValidatorImpl.class, InvalidListValidatorImpl.class })
 public class AbstractExtendedValidatorTest extends BaseTest {
 
-	@BeforeClass
+	@BeforeAll
 	public static void init() {
 		ENABLE_REAL_IMPLEMETATION = true;
 		Configuration.load(new ConfigInfoProvider() {
@@ -96,7 +97,7 @@ public class AbstractExtendedValidatorTest extends BaseTest {
 		});
 	}
 
-	@AfterClass
+	@AfterAll
 	public static void shutdown() {
 		ENABLE_REAL_IMPLEMETATION = false;
 		Configuration.unload();
@@ -241,19 +242,23 @@ public class AbstractExtendedValidatorTest extends BaseTest {
 		assertEquals(cDefault.getPropertyPath(), cExtended.getPropertyPath());
 	}
 
-	@Test(expected = ValidationException.class)
+	@Test()
 	public void testAddViolationIvalidMappedPath() {
-		User user = new User();
+		Assertions.assertThrows( ValidationException.class, () -> {
+			User user = new User();
 
-		getValidador().validate(user, GrupoInvalidMapped.class);
+			getValidador().validate(user, GrupoInvalidMapped.class);
+		});
 
 	}
 
-	@Test(expected = ValidationException.class)
+	@Test()
 	public void testAddViolationIvalidListPath() {
-		User user = new User();
+		Assertions.assertThrows( ValidationException.class, () -> {
+			User user = new User();
 
-		getValidador().validate(user, GrupoInvalidList.class);
+			getValidador().validate(user, GrupoInvalidList.class);
+		});
 	}
 
 	@Test

@@ -19,4 +19,8 @@ public class ConfigInfoProvider {
 	protected boolean isInTest() {
 		return false;
 	}
+
+	public String getConfigFileLocation(){
+		return getConfigPath() + "/" + getConfigFileName();
+	}
 }

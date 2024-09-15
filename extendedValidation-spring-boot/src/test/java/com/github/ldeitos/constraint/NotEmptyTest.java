@@ -2,9 +2,10 @@ package com.github.ldeitos.constraint;
 
 import static com.github.ldeitos.constants.Constants.EXTENDED_VALIDATOR_QUALIFIER;
 import static java.util.Arrays.asList;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -12,11 +13,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.ValidationException;
-import javax.validation.Validator;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ValidationException;
+import jakarta.validation.Validator;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -126,10 +127,12 @@ public class NotEmptyTest extends BaseTest {
 		assertEquals(MENSAGEM_ESPERADA, violacoes.iterator().next().getMessage());
 	}
 
-	@Test(expected = ValidationException.class)
+	@Test()
 	public void testInvalidType() {
-		TesteInvalidType var = new TesteInvalidType();
-		validador.validate(var);
+		assertThrows(ValidationException.class, () -> {
+			TesteInvalidType var = new TesteInvalidType();
+			validador.validate(var);
+		});
 	}
 
 	static class TesteInvalidType {

@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.ldeitos</groupId>
 	<artifactId>extendedValidation-spring-boot-parent</artifactId>
-	<version>2.0.0-Final</version>
+	<version>3.3.3</version>
 	<packaging>pom</packaging>
 	<name>Extended Validation Parent</name>
 	<description>ExtendedValidation parent project.</description>
@@ -48,20 +48,31 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<javadoc.opts>-Xdoclint:none</javadoc.opts>
 
-		<extended-validation-spring-boot-version>2.0.0-Final</extended-validation-spring-boot-version>
-		<mokito-version>3.1.0</mokito-version>
-		<spring-version>5.2.3.RELEASE</spring-version>
-		<spring-boot-version>2.2.4.RELEASE</spring-boot-version>
+		<extended-validation-spring-boot-version>3.3.3</extended-validation-spring-boot-version>
+		<mokito-version>5.13.0</mokito-version>
+		<spring-version>6.1.13</spring-version>
+		<spring-boot-version>3.3.3</spring-boot-version>
+		<jakarta-validation-api-version>3.0.1</jakarta-validation-api-version>
+		<jakarta-xml-bind-api-version>4.0.0</jakarta-xml-bind-api-version>
+		<aspectjweaver-version>1.9.22.1</aspectjweaver-version>
+		<commons-lang3-version>3.17.0</commons-lang3-version>
+		<slf4j-version>2.0.16</slf4j-version>
+		<commons-text-version>1.6</commons-text-version>
+		<commons-collections4-version>4.4</commons-collections4-version>
+		<junit-version>5.11.0</junit-version>
+		<jaxb-impl-version>4.0.3</jaxb-impl-version>
+		<hibernate-validator-version>8.0.1.Final</hibernate-validator-version>
+		<expressly-version>5.0.0</expressly-version>
 
-		<plugin-compiler-version>3.8.1</plugin-compiler-version>
-		<plugin-deploy-version>2.8.2</plugin-deploy-version>
-		<plugin-gpg-version>1.5</plugin-gpg-version>
-		<plugin-jacoco-version>0.8.5</plugin-jacoco-version>
-		<plugin-javadoc-version>2.10.1</plugin-javadoc-version>
-		<plugin-nexus-version>1.6.3</plugin-nexus-version>
-		<plugin-sonar-version>3.5.0.1254</plugin-sonar-version>
-		<plugin-source-version>2.2.1</plugin-source-version>
-		<plugin-surefire-version>3.0.0-M4</plugin-surefire-version>
+		<plugin-compiler-version>3.13.0</plugin-compiler-version>
+		<plugin-deploy-version>3.1.3</plugin-deploy-version>
+		<plugin-gpg-version>3.2.5</plugin-gpg-version>
+		<plugin-jacoco-version>0.8.12</plugin-jacoco-version>
+		<plugin-javadoc-version>3.10.0</plugin-javadoc-version>
+		<plugin-nexus-version>1.7.0</plugin-nexus-version>
+		<plugin-sonar-version>4.0.0.4121</plugin-sonar-version>
+		<plugin-source-version>3.3.1</plugin-source-version>
+		<plugin-surefire-version>3.5.0</plugin-surefire-version>
 	</properties>
 
 	<build>
@@ -123,8 +134,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>${plugin-compiler-version}</version>
 				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
+					<source>17</source>
+					<target>17</target>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -139,7 +150,7 @@
 						</goals>
 						<configuration>
 							<additionalparam>${javadoc.opts}</additionalparam>
-							<source>8</source>
+							<source>17</source>
 						</configuration>
 					</execution>
 				</executions>
@@ -234,6 +245,12 @@
 
 			<dependency>
 				<groupId>org.springframework</groupId>
+				<artifactId>spring-core</artifactId>
+				<version>${spring-version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
 				<artifactId>spring-beans</artifactId>
 				<version>${spring-version}</version>
 				<scope>provided</scope>
@@ -249,27 +266,33 @@
 			<dependency>
 				<groupId>org.aspectj</groupId>
 				<artifactId>aspectjweaver</artifactId>
-				<version>1.8.9</version>
+				<version>${aspectjweaver-version}</version>
 			</dependency>
 
 			<dependency>
-				<groupId>javax.validation</groupId>
-				<artifactId>validation-api</artifactId>
-				<version>2.0.1.Final</version>
+				<groupId>jakarta.validation</groupId>
+				<artifactId>jakarta.validation-api</artifactId>
+				<version>${jakarta-validation-api-version}</version>
 				<scope>compile</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>jakarta.xml.bind</groupId>
+				<artifactId>jakarta.xml.bind-api</artifactId>
+				<version>${jakarta-xml-bind-api-version}</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-lang3</artifactId>
-				<version>3.8.1</version>
+				<version>${commons-lang3-version}</version>
 				<scope>compile</scope>
 			</dependency>
 
 			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-api</artifactId>
-				<version>1.7.25</version>
+				<version>${slf4j-version}</version>
 				<scope>compile</scope>
 			</dependency>
 
@@ -283,43 +306,50 @@
 			<dependency>
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-text</artifactId>
-				<version>1.6</version>
+				<version>${commons-text-version}</version>
 				<scope>compile</scope>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-collections4</artifactId>
-				<version>4.4</version>
+				<version>${commons-collections4-version}</version>
 				<scope>compile</scope>
 			</dependency>
 
 			<dependency>
-				<groupId>io.github.classgraph</groupId>
-				<artifactId>classgraph</artifactId>
-				<version>4.1.2</version>
-				<scope>compile</scope>
+				<groupId>org.junit.jupiter</groupId>
+				<artifactId>junit-jupiter</artifactId>
+				<version>${junit-version}</version>
+				<scope>test</scope>
 			</dependency>
 
 			<dependency>
-				<groupId>junit</groupId>
-				<artifactId>junit</artifactId>
-				<version>4.12</version>
+				<groupId>org.junit.jupiter</groupId>
+				<artifactId>junit-jupiter-api</artifactId>
+				<version>${junit-version}</version>
 				<scope>test</scope>
 			</dependency>
 
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-test</artifactId>
-				<scope>test</scope>
 				<version>${spring-boot-version}</version>
+				<scope>test</scope>
 			</dependency>
 
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-test</artifactId>
-				<scope>test</scope>
 				<version>${spring-boot-version}</version>
+				<scope>test</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-test-autoconfigure</artifactId>
+				<version>${spring-boot-version}</version>
+				<scope>test</scope>
 			</dependency>
 
 			<dependency>
@@ -346,21 +376,21 @@
 			<dependency>
 				<groupId>org.hibernate.validator</groupId>
 				<artifactId>hibernate-validator</artifactId>
-				<version>6.0.13.Final</version>
+				<version>${hibernate-validator-version}</version>
 				<scope>test</scope>
 			</dependency>
 
 			<dependency>
-				<groupId>javax.el</groupId>
-				<artifactId>javax.el-api</artifactId>
-				<version>3.0.0</version>
+				<groupId>org.glassfish.expressly</groupId>
+				<artifactId>expressly</artifactId>
+				<version>${expressly-version}</version>
 				<scope>test</scope>
 			</dependency>
 
 			<dependency>
-				<groupId>com.sun.el</groupId>
-				<artifactId>el-ri</artifactId>
-				<version>1.0</version>
+				<groupId>com.sun.xml.bind</groupId>
+				<artifactId>jaxb-impl</artifactId>
+				<version>${jaxb-impl-version}</version>
 				<scope>test</scope>
 			</dependency>
 
@@ -374,7 +404,7 @@
 			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-nop</artifactId>
-				<version>1.7.7</version>
+				<version>${slf4j-version}</version>
 				<scope>test</scope>
 			</dependency>
 		</dependencies>
