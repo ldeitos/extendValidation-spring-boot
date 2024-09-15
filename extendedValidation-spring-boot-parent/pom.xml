@@ -50,7 +50,7 @@
 
 		<extended-validation-spring-boot-version>2.0.0-Final</extended-validation-spring-boot-version>
 		<mokito-version>3.1.0</mokito-version>
-		<spring-version>5.2.3.RELEASE</spring-version>
+		<spring-version>5.2.22.RELEASE</spring-version>
 		<spring-boot-version>2.2.4.RELEASE</spring-boot-version>
 
 		<plugin-compiler-version>3.8.1</plugin-compiler-version>
