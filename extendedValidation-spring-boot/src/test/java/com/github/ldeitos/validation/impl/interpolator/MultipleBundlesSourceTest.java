@@ -1,12 +1,12 @@
 package com.github.ldeitos.validation.impl.interpolator;
 
 import static com.github.ldeitos.constants.Constants.MESSAGE_FILES_SYSTEM_PROPERTY;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Locale;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import com.github.ldeitos.test.base.BaseTest;
 
@@ -38,7 +38,7 @@ public class MultipleBundlesSourceTest extends BaseTest {
 	}
 
 	@Test
-	@Ignore("Test fail in CI environment")
+	@Disabled("Test fail in CI environment")
 	public void testDefaultMessageFileLocalized() {
 		Locale locale = new Locale("es_ES");
 		MultipleBundlesSource source = new MultipleBundlesSource();
@@ -60,7 +60,7 @@ public class MultipleBundlesSourceTest extends BaseTest {
 	}
 
 	@Test
-	@Ignore("Test fail in CI environment")
+	@Disabled("Test fail in CI environment")
 	public void testOtherMessageFileLocalized() {
 		System.setProperty(MESSAGE_FILES_SYSTEM_PROPERTY, OTHER_MESSAGE_FILE);
 

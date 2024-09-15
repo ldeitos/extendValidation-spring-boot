@@ -8,7 +8,7 @@ import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import javax.validation.groups.Default;
+import jakarta.validation.groups.Default;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 

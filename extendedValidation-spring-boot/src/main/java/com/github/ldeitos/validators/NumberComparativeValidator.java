@@ -6,7 +6,7 @@ import java.math.BigInteger;
 
 abstract class NumberComparativeValidator<A extends Annotation> extends MultiTargetValidator<A> {
 	private final Class<?>[] targetClasses = {Integer.class, Long.class, Short.class, 
-			Byte.class, BigInteger.class, BigDecimal.class}; 
+			Byte.class, BigInteger.class, BigDecimal.class, RangeValidator.class}; 
 
 	protected boolean doValidation(Object value) {
 		Number n = (Number) value;

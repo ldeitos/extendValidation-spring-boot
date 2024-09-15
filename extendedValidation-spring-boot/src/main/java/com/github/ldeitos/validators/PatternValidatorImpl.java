@@ -2,7 +2,7 @@ package com.github.ldeitos.validators;
 
 import static com.github.ldeitos.constants.Constants.PROTOTYPE_SCOPE;
 
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidatorContext;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;

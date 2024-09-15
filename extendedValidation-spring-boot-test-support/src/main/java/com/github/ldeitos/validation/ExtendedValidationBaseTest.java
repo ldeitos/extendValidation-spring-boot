@@ -1,8 +1,7 @@
 package com.github.ldeitos.validation;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -25,7 +24,6 @@ import com.github.ldeitos.validators.PatternValidatorImpl;
 import com.github.ldeitos.validators.RangeValidatorImpl;
 import com.github.ldeitos.validators.SizeValidatorImpl;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = { ExtendedValidationBootstrap.class, SBContext.class, ValidatorImpl.class,
 		MultipleBundlesSource.class, NotEmptyValidatorImpl.class, EmptyValidatorImpl.class, PatternValidatorImpl.class,
 		DigitsValidatorImpl.class, SizeValidatorImpl.class, MinDecimalValidatorImpl.class, MinValidatorImpl.class,
@@ -33,11 +31,11 @@ import com.github.ldeitos.validators.SizeValidatorImpl;
 		ValidateParametersInterceptor.class, DefaultValidationClosure.class, MessageResolverImpl.class, ConfigInfoProvider.class })
 public class ExtendedValidationBaseTest {
 
-	@BeforeClass
+	@BeforeAll
 	public static void setup() {
 	}
 
-	@AfterClass
+	@AfterAll
 	public static void shutdown() {
 	}
 

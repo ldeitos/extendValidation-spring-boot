@@ -1,10 +1,10 @@
 package com.github.ldeitos.validation.impl;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Set;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.github.ldeitos.constraint.AssertTrue;
 import com.github.ldeitos.test.base.BaseTest;

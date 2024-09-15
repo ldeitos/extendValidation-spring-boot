@@ -4,71 +4,13 @@
 # https://aka.ms/yaml
 
 pool:
-  vmImage: 'Ubuntu 18.04'
-variables:
-- group: krypto
+  vmImage: 'ubuntu-latest'
 steps:
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: |
-      echo Criando gpg home...
-      sudo mkdir /gpg
-      sudo chmod a+rw /gpg
-- task: DownloadSecureFile@1
-  name: public
-  displayName: 'Download Signing Public Key'
-  inputs:
-    secureFile: 'public.asc'
-- script: |
-    echo Installing $(public.secureFilePath) to the keystore...
-    sudo chown root:root $(public.secureFilePath)
-    sudo gpg --homedir /gpg --import < $(public.secureFilePath)
-- task: DownloadSecureFile@1
-  name: secret
-  displayName: 'Download Signing Secret Key'
-  inputs:
-    secureFile: 'secret.asc'
-- script: |
-    echo Installing $(secret.secureFilePath) to the keystore...
-    sudo chown root:root $(secret.secureFilePath)
-    sudo gpg --homedir /gpg --batch --import < $(secret.secureFilePath)
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: |
-      sudo chmod a+rw /gpg/*
-      echo Secret vars...
-      echo gpg.keyname=$(gpg-keyname)
-      echo gpg.passphrase=$(gpg-passphrase)
-      echo sonatype-oss-password=$(sonatype-oss-password)
-      echo sonatype-oss-username=$(sonatype-oss-username)
-      echo Listing gpghome content...
-      ls /gpg/
-      echo Listing gpg public keys...
-      sudo gpg -kv --homedir /gpg --keyid-format short
-      echo Listing gpg secret keys...
-      sudo gpg -Kv --homedir /gpg --keyid-format short
 - task: Maven@3
   inputs:
-    options: $(add-mvn-opts)
-    mavenPomFile: 'extendedValidation-spring-boot-parent/pom.xml'
-    mavenOptions: '-Xmx512m -DskipTests -Dmaven.javadoc.skip=true
-                   -Dgpg.keyname=$(gpg-keyname) 
-                   -Dgpg.passphrase=$(gpg-passphrase) 
-                   -Dgpg.homedir=/gpg'
-    goals: 'clean install'
-- task: Maven@3
-  inputs:
-    options: -s maven/settings.xml $(add-mvn-opts)
     mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx1024m 
-                   -Dgpg.keyname=$(gpg-keyname) 
-                   -Dgpg.passphrase=$(gpg-passphrase) 
-                   -Dgpg.homedir=/gpg 
-                   -Dsonatype-oss-password=$(sonatype-oss-password) 
-                   -Dsonatype-oss-username=$(sonatype-oss-username)'
+    mavenOptions: '-Xmx1024m'
+    jdkVersionOption: '17'
     publishJUnitResults: 'true'
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'clean install sonar:sonar $(lst_mvn_goals)'
-    
+    goals: 'clean package'

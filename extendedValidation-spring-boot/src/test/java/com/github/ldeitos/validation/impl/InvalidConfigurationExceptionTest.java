@@ -1,18 +1,25 @@
 package com.github.ldeitos.validation.impl;
 
-import org.junit.Test;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.github.ldeitos.exception.InvalidConfigurationException;
 
 public class InvalidConfigurationExceptionTest {
 	
-	@Test(expected = InvalidConfigurationException.class)
+	@Test()
 	public void testThrowMSG() {
-		InvalidConfigurationException.throwNew("Teste");		
+		Assertions.assertThrows(InvalidConfigurationException.class, () -> {
+			InvalidConfigurationException.throwNew("Teste");
+		});		
 	}
 	
-	@Test(expected = InvalidConfigurationException.class)
+	@Test()
 	public void testThrowMSGAndCause() {
-		InvalidConfigurationException.throwNew("Teste", new RuntimeException());		
+		Assertions.assertThrows(RuntimeException.class, () -> {
+				InvalidConfigurationException.throwNew("Teste", new RuntimeException());		
+			
+		});
 	}
 }
