@@ -50,7 +50,7 @@
 
 		<extended-validation-spring-boot-version>3.3.3</extended-validation-spring-boot-version>
 		<mokito-version>5.13.0</mokito-version>
-		<spring-version>6.1.13</spring-version>
+		<spring-version>6.1.14</spring-version>
 		<spring-boot-version>3.3.3</spring-boot-version>
 		<jakarta-validation-api-version>3.0.1</jakarta-validation-api-version>
 		<jakarta-xml-bind-api-version>4.0.0</jakarta-xml-bind-api-version>
