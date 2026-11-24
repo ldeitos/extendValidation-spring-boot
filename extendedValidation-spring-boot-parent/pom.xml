@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.ldeitos</groupId>
 	<artifactId>extendedValidation-spring-boot-parent</artifactId>
-	<version>3.3.3</version>
+	<version>3.3.13</version>
 	<packaging>pom</packaging>
 	<name>Extended Validation Parent</name>
 	<description>ExtendedValidation parent project.</description>
@@ -48,18 +48,18 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<javadoc.opts>-Xdoclint:none</javadoc.opts>
 
-		<extended-validation-spring-boot-version>3.3.3</extended-validation-spring-boot-version>
+		<extended-validation-spring-boot-version>3.3.13</extended-validation-spring-boot-version>
 		<mokito-version>5.13.0</mokito-version>
-		<spring-version>6.1.13</spring-version>
-		<spring-boot-version>3.3.3</spring-boot-version>
+		<spring-version>6.1.21</spring-version>
+		<spring-boot-version>3.3.13</spring-boot-version>
 		<jakarta-validation-api-version>3.0.1</jakarta-validation-api-version>
 		<jakarta-xml-bind-api-version>4.0.0</jakarta-xml-bind-api-version>
 		<aspectjweaver-version>1.9.22.1</aspectjweaver-version>
-		<commons-lang3-version>3.17.0</commons-lang3-version>
+		<commons-lang3-version>3.22.0</commons-lang3-version>
 		<slf4j-version>2.0.16</slf4j-version>
-		<commons-text-version>1.6</commons-text-version>
-		<commons-collections4-version>4.4</commons-collections4-version>
-		<junit-version>5.11.0</junit-version>
+		<commons-text-version>1.15</commons-text-version>
+		<commons-collections4-version>4.6.0</commons-collections4-version>
+		<junit-jupiter-api-version>5.10.5</junit-jupiter-api-version>
 		<jaxb-impl-version>4.0.3</jaxb-impl-version>
 		<hibernate-validator-version>8.0.1.Final</hibernate-validator-version>
 		<expressly-version>5.0.0</expressly-version>
@@ -88,12 +88,6 @@
 						<goals>
 							<goal>sign</goal>
 						</goals>
-						<configuration>
-							<gpgArguments>
-								<arg>--pinentry-mode</arg>
-								<arg>loopback</arg>
-							</gpgArguments>
-						</configuration>
 					</execution>
 				</executions>
 			</plugin>
@@ -106,14 +100,14 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.sonatype.plugins</groupId>
-				<artifactId>nexus-staging-maven-plugin</artifactId>
-				<version>${plugin-nexus-version}</version>
+				<groupId>org.sonatype.central</groupId>
+				<artifactId>central-publishing-maven-plugin</artifactId>
+				<version>0.9.0</version>
 				<extensions>true</extensions>
 				<configuration>
-					<serverId>oss-sonatype</serverId>
-					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
-					<autoReleaseAfterClose>true</autoReleaseAfterClose>
+					<publishingServerId>central</publishingServerId>
+					<autoPublish>true</autoPublish>
+					<waitUntil>published</waitUntil>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -297,13 +291,6 @@
 			</dependency>
 
 			<dependency>
-				<groupId>commons-beanutils</groupId>
-				<artifactId>commons-beanutils</artifactId>
-				<version>1.9.3</version>
-				<scope>compile</scope>
-			</dependency>
-
-			<dependency>
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-text</artifactId>
 				<version>${commons-text-version}</version>
@@ -319,15 +306,8 @@
 
 			<dependency>
 				<groupId>org.junit.jupiter</groupId>
-				<artifactId>junit-jupiter</artifactId>
-				<version>${junit-version}</version>
-				<scope>test</scope>
-			</dependency>
-
-			<dependency>
-				<groupId>org.junit.jupiter</groupId>
 				<artifactId>junit-jupiter-api</artifactId>
-				<version>${junit-version}</version>
+				<version>${junit-jupiter-api-version}</version>
 				<scope>test</scope>
 			</dependency>
 
