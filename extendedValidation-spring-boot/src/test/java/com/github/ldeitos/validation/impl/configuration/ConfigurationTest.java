@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import org.mockito.Mock;
@@ -40,7 +41,13 @@ public class ConfigurationTest {
 	
 	@BeforeEach
 	public void setup() {
+		System.clearProperty(MESSAGE_FILES_SYSTEM_PROPERTY);
 		configuration = getConfiguration(configProvider);
+	}
+
+	@AfterEach
+	public void cleanup() {
+		System.clearProperty(MESSAGE_FILES_SYSTEM_PROPERTY);
 	}
 
 	@Test
@@ -54,8 +61,6 @@ public class ConfigurationTest {
 		assertTrue(configuration.getConfituredMessageFiles().contains(OTHER_TEST_MESSAGE_FILE));
 		assertTrue(configuration.getConfituredMessageFiles().contains("arq1"));
 		assertTrue(configuration.getConfituredMessageFiles().contains("arq2"));
-
-		System.clearProperty(MESSAGE_FILES_SYSTEM_PROPERTY);
 	}
 
 	@Test
