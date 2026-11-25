@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.ldeitos</groupId>
 	<artifactId>extendedValidation-spring-boot-parent</artifactId>
-	<version>4.1.3</version>
+	<version>4.2.0</version>
 	<packaging>pom</packaging>
 	<name>Extended Validation Parent</name>
 	<description>ExtendedValidation parent project.</description>
@@ -48,10 +48,10 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<javadoc.opts>-Xdoclint:none</javadoc.opts>
 
-		<extended-validation-spring-boot-version>4.1.3</extended-validation-spring-boot-version>
-		<mokito-version>5.23.0</mokito-version>
-		<spring-version>7.0.11</spring-version>
-		<spring-boot-version>4.1.3</spring-boot-version>
+		<extended-validation-spring-boot-version>4.2.0</extended-validation-spring-boot-version>
+		<mokito-version>5.24.0</mokito-version>
+		<spring-version>7.1.0</spring-version>
+		<spring-boot-version>4.2.0</spring-boot-version>
 		<jakarta-validation-api-version>3.1.1</jakarta-validation-api-version>
 		<jakarta-xml-bind-api-version>4.0.5</jakarta-xml-bind-api-version>
 		<aspectjweaver-version>1.9.27</aspectjweaver-version>
@@ -59,7 +59,7 @@
 		<slf4j-version>2.0.20</slf4j-version>
 		<commons-text-version>1.15</commons-text-version>
 		<commons-collections4-version>4.6.0</commons-collections4-version>
-		<junit-jupiter-api-version>6.0.3</junit-jupiter-api-version>
+		<junit-jupiter-api-version>6.1.3</junit-jupiter-api-version>
 		<jaxb-impl-version>4.0.9</jaxb-impl-version>
 		<hibernate-validator-version>9.1.6.Final</hibernate-validator-version>
 		<expressly-version>6.0.0</expressly-version>
